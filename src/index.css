@@ -2,6 +2,34 @@
 @import "tailwindcss";
 @import "tw-animate-css";
 
+@font-face {
+  font-family: 'EdoSZ';
+  src: url('/src/assets/fonts/edosz.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GilroyMedium';
+  src: url('/src/assets/fonts/Gilroy-Medium.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@font-face {
+  font-family: 'GilroySemiBold';
+  src: url('/src/assets/fonts/Gilroy-SemiBold.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+@theme {
+  --font-edosz: "EdoSZ", sans-serif;
+  --font-gilroy: "GilroyMedium", sans-serif;
+  --font-gilroy-semibold: "GilroySemiBold", sans-serif;
+}
+
+
 body{
   font-family: 'Poppins', sans-serif;
 }
