@@ -54,7 +54,7 @@ const Start = () => {
       </div>
       <div className="flex flex-wrap items-center mt-[19vh] mb-[.4vw]">
         <Link
-          to={"/auth"}
+          to={"/auth/signup"}
           ref={btnRef}
           className="w-full flex font-gilroy items-center justify-center px-[4vw] py-[2.2vh] text-2xl bg-black rounded-[1vw] text-white"
         >

@@ -1,24 +1,24 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap');
+@import url("https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap");
 @import "tailwindcss";
 @import "tw-animate-css";
 
 @font-face {
-  font-family: 'EdoSZ';
-  src: url('/src/assets/fonts/edosz.ttf') format('truetype');
+  font-family: "EdoSZ";
+  src: url("/src/assets/fonts/edosz.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'GilroyMedium';
-  src: url('/src/assets/fonts/Gilroy-Medium.ttf') format('truetype');
+  font-family: "GilroyMedium";
+  src: url("/src/assets/fonts/Gilroy-Medium.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
 
 @font-face {
-  font-family: 'GilroySemiBold';
-  src: url('/src/assets/fonts/Gilroy-SemiBold.ttf') format('truetype');
+  font-family: "GilroySemiBold";
+  src: url("/src/assets/fonts/Gilroy-SemiBold.ttf") format("truetype");
   font-weight: normal;
   font-style: normal;
 }
@@ -29,14 +29,17 @@
   --font-gilroy-semibold: "GilroySemiBold", sans-serif;
 }
 
-
-body{
-  font-family: 'Poppins', sans-serif;
+body {
+  font-family: "Poppins", sans-serif;
 }
 
 @custom-variant dark (&:is(.dark *));
 
 @theme inline {
+  --color-primary-teal: var(--primary-teal);
+  --color-secondary-teal: var(--secondary-teal);
+  --color-bg-light: var(--bg-light);
+  --color-bg-heavy: var(--bg-heavy);
   --radius-sm: calc(var(--radius) - 4px);
   --radius-md: calc(var(--radius) - 2px);
   --radius-lg: var(--radius);
@@ -75,6 +78,10 @@ body{
 }
 
 :root {
+  --primary-teal: #01979d;
+  --secondary-teal: #00aab8;
+  --bg-light: #e9fdfe;
+  --bg-heavy: #e6f4f1;
   --radius: 0.625rem;
   --background: oklch(1 0 0);
   --foreground: oklch(0.129 0.042 264.695);
@@ -110,6 +117,10 @@ body{
 }
 
 .dark {
+  --primary-teal: #01979d;
+  --secondary-teal: #007980;
+  --bg-light: #004248;
+  --bg-heavy: #00282f;
   --background: oklch(0.129 0.042 264.695);
   --foreground: oklch(0.984 0.003 247.858);
   --card: oklch(0.208 0.042 265.755);
