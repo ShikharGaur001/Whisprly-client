@@ -3,9 +3,11 @@ import { Link, useNavigate } from "react-router-dom";
 import { toast } from "sonner";
 import { SIGNUP_ROUTE } from "@/utils/constants";
 import { apiClient } from "@/lib/api-client";
+import { useAppStore } from "@/store";
 
 const Signup = () => {
-  const navigate = useNavigate()
+  const navigate = useNavigate();
+  const { setUserInfo } = useAppStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [confirmPassword, setConfirmPassword] = useState("");
@@ -28,9 +30,14 @@ const Signup = () => {
 
   const handleSignup = async () => {
     if (validateSignup()) {
-      const res = await apiClient.post(SIGNUP_ROUTE, { email, password }, {withCredentials: true});
-      if(res.status === 201) {
-        navigate("/profile")
+      const res = await apiClient.post(
+        SIGNUP_ROUTE,
+        { email, password },
+        { withCredentials: true }
+      );
+      if (res.status === 201) {
+        setUserInfo(res.data.user)
+        navigate("/profile");
       }
       console.log({ res });
     }

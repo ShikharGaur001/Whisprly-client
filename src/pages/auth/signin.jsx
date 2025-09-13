@@ -1,4 +1,5 @@
 import { apiClient } from "@/lib/api-client";
+import { useAppStore } from "@/store";
 import { SIGNIN_ROUTE } from "@/utils/constants";
 import React, { useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
@@ -6,6 +7,7 @@ import { toast } from "sonner";
 
 const Signin = () => {
   const navigate = useNavigate();
+  const { setUserInfo } = useAppStore();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
@@ -29,6 +31,7 @@ const Signin = () => {
         { withCredentials: true }
       );
       if (res.data.user.id) {
+        setUserInfo(res.data.user)
         if (res.data.user.profileSetup) navigate("/chat");
         else navigate("/profile");
       }
