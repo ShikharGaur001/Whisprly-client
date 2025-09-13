@@ -1,7 +1,41 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
+import { SIGNUP_ROUTE } from "@/utils/constants";
+import { apiClient } from "@/lib/api-client";
 
 const Signup = () => {
+  const navigate = useNavigate()
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+  const [confirmPassword, setConfirmPassword] = useState("");
+
+  const validateSignup = () => {
+    if (!email.length) {
+      toast.error("Email is required.");
+      return false;
+    }
+    if (!password.length) {
+      toast.error("Password is required.");
+      return false;
+    }
+    if (password !== confirmPassword) {
+      toast.error("Password and confirm password should be same.");
+      return false;
+    }
+    return true;
+  };
+
+  const handleSignup = async () => {
+    if (validateSignup()) {
+      const res = await apiClient.post(SIGNUP_ROUTE, { email, password }, {withCredentials: true});
+      if(res.status === 201) {
+        navigate("/profile")
+      }
+      console.log({ res });
+    }
+  };
+
   return (
     <div className="h-[100vh] w-[100vw] flex flex-col items-center justify-center">
       <div className="w-full h-1/11 px-[1vw]">
@@ -26,21 +60,28 @@ const Signup = () => {
                 type="email"
                 className="bg-bg-light w-11/12 px-[1.8vw] mt-[3vw] py-[1.2vw] rounded-full text-[1.2vw] font-gilroy border-secondary-teal border-[.2vw]"
                 placeholder="Enter E-mail"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 type="password"
                 className="bg-bg-light w-11/12 px-[1.8vw] mt-[1vw] py-[1.2vw] rounded-full text-[1.2vw] font-gilroy border-secondary-teal border-[.2vw]"
                 placeholder="Enter Password"
+                value={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <input
                 type="password"
                 className="bg-bg-light w-11/12 px-[1.8vw] mt-[1vw] py-[1.2vw] rounded-full text-[1.2vw] font-gilroy border-secondary-teal border-[.2vw]"
                 placeholder="Confirm Password"
+                value={confirmPassword}
+                onChange={(e) => setConfirmPassword(e.target.value)}
               />
               <input
                 type="submit"
                 className="bg-primary-teal text-white w-11/12 px-[1.8vw] mt-[3vw] py-[1.2vw] rounded-full text-[1.2vw] font-bold font-gilroy"
                 value={`Sign Up`}
+                onClick={handleSignup}
               />
             </div>
             <div className="w-full flex justify-center items-center font-gilroy">

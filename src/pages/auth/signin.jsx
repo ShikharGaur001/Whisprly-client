@@ -1,7 +1,41 @@
-import React from "react";
-import { Link } from "react-router-dom";
+import { apiClient } from "@/lib/api-client";
+import { SIGNIN_ROUTE } from "@/utils/constants";
+import React, { useState } from "react";
+import { Link, useNavigate } from "react-router-dom";
+import { toast } from "sonner";
 
 const Signin = () => {
+  const navigate = useNavigate();
+  const [email, setEmail] = useState("");
+  const [password, setPassword] = useState("");
+
+  const validateSignin = () => {
+    if (!email.length) {
+      toast.error("Email is required.");
+      return false;
+    }
+    if (!password.length) {
+      toast.error("Password is required.");
+      return false;
+    }
+    return true;
+  };
+
+  const handleSignin = async () => {
+    if (validateSignin()) {
+      const res = await apiClient.post(
+        SIGNIN_ROUTE,
+        { email, password },
+        { withCredentials: true }
+      );
+      if (res.data.user.id) {
+        if (res.data.user.profileSetup) navigate("/chat");
+        else navigate("/profile");
+      }
+      console.log(res);
+    }
+  };
+
   return (
     <div className="h-[100vh] w-[100vw] flex flex-col items-center justify-center">
       <div className="w-full h-1/11 px-[1vw]">
@@ -29,22 +63,28 @@ const Signin = () => {
                 Welcome back Whisprer
               </h1>
               <h2 className="text-zinc-500 mt-[1vw] text-center w-3/4 font-gilroy text-[1vw]">
-                Pick up every conversation where you left it — private, seamless, yours
+                Pick up every conversation where you left it — private,
+                seamless, yours
               </h2>
               <input
                 type="email"
                 className="bg-bg-light w-11/12 px-[1.8vw] mt-[3vw] py-[1.2vw] rounded-full text-[1.2vw] font-gilroy border-secondary-teal border-[.2vw]"
                 placeholder="Enter E-mail"
+                value={email}
+                onChange={(e) => setEmail(e.target.value)}
               />
               <input
                 type="password"
                 className="bg-bg-light w-11/12 px-[1.8vw] mt-[1vw] py-[1.2vw] rounded-full text-[1.2vw] font-gilroy border-secondary-teal border-[.2vw]"
                 placeholder="Enter Password"
+                alue={password}
+                onChange={(e) => setPassword(e.target.value)}
               />
               <input
                 type="submit"
                 className="bg-primary-teal text-white w-11/12 px-[1.8vw] mt-[3vw] py-[1.2vw] rounded-full text-[1.2vw] font-bold font-gilroy"
                 value={`Sign Up`}
+                onClick={handleSignin}
               />
             </div>
             <div className="w-full flex justify-center items-center font-gilroy">
